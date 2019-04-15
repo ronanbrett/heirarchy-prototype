@@ -1,0 +1,28 @@
+<app-workspace-node-root
+  [links]="getLinks('id-0')"
+  (init)="createDraftNode('id-0')"
+  (end)="cancelDraftNode()"
+></app-workspace-node-root>
+
+<div class="workspace-grid">
+  <div
+    *ngFor="let gi of (positioning.grid$ | async); let gindex = index"
+    class="grid-item"
+  >
+    <ng-container *ngFor="let item of getItems(gindex, gi)">
+      <app-workspace-node-leaf
+        *ngIf="item.type === 1"
+        [links]="getLinks(item.id)"
+        [item]="item"
+        (init)="createDraftNode(item.id)"
+        (end)="cancelDraftNode()"
+      >
+        {{ item.id }} of {{ item.parent }}
+      </app-workspace-node-leaf>
+
+      <app-workspace-node-empty
+        *ngIf="item.type === 0"
+      ></app-workspace-node-empty>
+    </ng-container>
+  </div>
+</div>

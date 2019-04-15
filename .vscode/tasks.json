@@ -18,6 +18,11 @@
         "$tsc-watch"
       ],
       "isBackground": true
+    },
+    {
+      "type": "npm",
+      "script": "start:prod",
+      "problemMatcher": []
     }
   ]
 }

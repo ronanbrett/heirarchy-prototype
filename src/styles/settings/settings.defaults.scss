@@ -1,0 +1,32 @@
+$global-font-size: 16px !default;;
+$global-line-height: $global-font-size * 1.5 !default;
+
+$global-spacing-unit: round($global-line-height) !default;
+
+$global-spacing-unit-xtiny: 0.125;
+$global-spacing-unit-tiny: 0.25;
+$global-spacing-unit-small: 0.5;
+$global-spacing-unit-med: 1.5;
+$global-spacing-unit-large: 2;
+$global-spacing-unit-huge: 4;
+$global-spacing-unit-massive: 8;
+
+
+$spacing-xxs: round($global-spacing-unit * $global-spacing-unit-xtiny);
+$spacing-xs: round($global-spacing-unit * $global-spacing-unit-tiny);
+$spacing-s: round($global-spacing-unit * $global-spacing-unit-small);
+$spacing-m: round($global-spacing-unit);
+$spacing-mx: round($global-spacing-unit * $global-spacing-unit-med);
+$spacing-l: round($global-spacing-unit * $global-spacing-unit-large);
+$spacing-xl: round($global-spacing-unit * $global-spacing-unit-huge);
+$spacing-xxl: round($global-spacing-unit * $global-spacing-unit-massive);
+
+
+$box-shadow: -2px 2px 10px 0 rgba(217,217,217,0.23), 5px 4px 10px 1px rgba(232,224,224,0.25);
+$box-shadow-alt: -2px 2px 20px 3px rgba(224, 224, 224, 0.16), 20px 18px 20px 5px rgba(232, 224, 224, 0.04);
+$box-shadow-bottom: -10px 10px 20px 0 rgba(208, 208, 208, 0.12), 10px 10px 20px 0 rgba(208, 208, 208, 0.08);
+
+
+$default-margin: 0 $spacing-m $spacing-m;
+$default-margin-sides: $spacing-m;
+$default-border-radius: 4px;

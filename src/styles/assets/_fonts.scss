@@ -1,0 +1,113 @@
+// @import "~material-design-icons-iconfont/dist/material-design-icons.css";
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/mdi/material.woff2") format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+//
+// mixin for bullet proof font declaration syntax
+//
+@mixin declare-font-face($font-family, $font-filename, $font-weight : normal, $font-style :normal, $font-stretch : normal){
+	@font-face{
+		font-family: '#{$font-family}';
+		src: url(#{$font-filename}.eot);
+		src: url(#{$font-filename}.eot?#iefix) format('embedded-opentype'),
+		url(#{$font-filename}.woff) format('woff'),
+		url(#{$font-filename}.ttf) format('truetype'),
+		url(#{$font-filename}.svg##{$font-family}) format('svg');
+		font-weight: $font-weight;
+		font-style: $font-style;
+		font-stretch: $font-stretch;
+	}
+}
+
+@mixin declare-font-face-ttf($font-family, $font-filename, $font-weight : normal, $font-style :normal, $font-stretch : normal){
+	@font-face{
+		font-family: '#{$font-family}';
+		src: url(#{$font-filename}.ttf) format('truetype');
+		font-weight: $font-weight;
+		font-style: $font-style;
+		font-stretch: $font-stretch;
+	}
+}
+
+/* Roboto */
+@include declare-font-face-ttf('Roboto', 'fonts/roboto/Roboto-Thin', 100);
+@include declare-font-face-ttf('Roboto', 'fonts/roboto/Roboto-Light', 300);
+@include declare-font-face-ttf('Roboto', 'fonts/roboto/Roboto-Regular', 400);
+@include declare-font-face-ttf('Roboto', 'fonts/roboto/Roboto-Medium', 500);
+@include declare-font-face-ttf('Roboto', 'fonts/roboto/Roboto-Bold', 700);
+@include declare-font-face-ttf('Roboto', 'fonts/roboto/Roboto-Black', 900);
+
+@include declare-font-face-ttf('Roboto Condensed', 'fonts/roboto_condensed/RobotoCondensed-Light', 300);
+@include declare-font-face-ttf('Roboto Condensed', 'fonts/roboto_condensed/RobotoCondensed-Regular', 400);
+@include declare-font-face-ttf('Roboto Condensed', 'fonts/roboto_condensed/RobotoCondensed-Bold', 700);
+
+
+
+
+/* BNPP Sans */
+@include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-light', 300);
+@include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-light-italic', 300, italic);
+@include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans', 400);
+@include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-italic', 400, italic);
+@include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-bold', 700);
+@include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-bold-italic', 700, italic);
+// @include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-extrabold', 800);
+// @include declare-font-face('BNPPSans', 'fonts/bnpp-sans/bnpp-sans-extrabold-italic', 800, italic);
+
+/* BNPP Sans Condensed */
+@include declare-font-face('BNPPSansCondensed', 'fonts/bnpp-sans-condensed/bnpp-sans-cond-light-v2', 300);
+@include declare-font-face('BNPPSansCondensed', 'fonts/bnpp-sans-condensed/bnpp-sans-cond-v2', 400);
+@include declare-font-face('BNPPSansCondensed', 'fonts/bnpp-sans-condensed/bnpp-sans-cond-bold-v2', 700);
+@include declare-font-face('BNPPSansCondensed', 'fonts/bnpp-sans-condensed/bnpp-sans-cond-extrabold-v2', 800);
+
+/* BNPP Serif */
+// @include declare-font-face('BNPPSerif', 'fonts/bnpp-serif/bnpp-serif-light-v2', 300);
+// @include declare-font-face('BNPPSerif', 'fonts/bnpp-serif/bnpp-serif-regular-v2', 400);
+// @include declare-font-face('BNPPSerif', 'fonts/bnpp-serif/bnpp-serif-bold-v2', 700);
+// @include declare-font-face('BNPPSerif', 'fonts/bnpp-serif/bnpp-serif-extrabold-v2', 800);
+
+/* BNPP Slab Expanded */
+// @include declare-font-face('BNPPSlabExpanded', 'fonts/bnpp-slab-expanded/bnpp-slabexpanded-light-v2', 300);
+// @include declare-font-face('BNPPSlabExpanded', 'fonts/bnpp-slab-expanded/bnpp-slabexpanded-regular-v2', 400);
+// @include declare-font-face('BNPPSlabExpanded', 'fonts/bnpp-slab-expanded/bnpp-slabexpended-bold-v2', 700);
+// @include declare-font-face('BNPPSlabExpanded', 'fonts/bnpp-slab-expanded/bnpp-slabexpended-extrabold-v2', 800);
+
+/* BNPP Slab Serif */
+// @include declare-font-face('BNPPSlabSerif', 'fonts/bnpp-slab-serif/bnpp-slabserif-light-v2', 300);
+// @include declare-font-face('BNPPSlabSerif', 'fonts/bnpp-slab-serif/bnpp-slabserif-regular-v2', 400);
+// @include declare-font-face('BNPPSlabSerif', 'fonts/bnpp-slab-serif/bnpp-slabserif-bold-v2', 700);
+// @include declare-font-face('BNPPSlabSerif', 'fonts/bnpp-slab-serif/bnpp-slabserif-extrabold-v2', 800);
+
+/* BNPP Square */
+// @include declare-font-face('BNPPSquare', 'fonts/bnpp-square/bnpp-square-light-v3', 300);
+// @include declare-font-face('BNPPSquare', 'fonts/bnpp-square/bnpp-square-regular-v3', 400);
+// @include declare-font-face('BNPPSquare', 'fonts/bnpp-square/bnpp-square-bold-v3', 700);
+// @include declare-font-face('BNPPSquare', 'fonts/bnpp-square/bnpp-square-extrabold-v3', 800);
+
+/* BNPP Rounded */
+// @include declare-font-face('BNPPRounded', 'fonts/bnpp-rounded/bnpp-rounded-light-v2', 300);
+// @include declare-font-face('BNPPRounded', 'fonts/bnpp-rounded/bnpp-rounded-v2', 400);
+// @include declare-font-face('BNPPRounded', 'fonts/bnpp-rounded/bnpp-rounded-bold-v2', 700);
+// @include declare-font-face('BNPPRounded', 'fonts/bnpp-rounded/bnpp-rounded-extrabold-v2', 800);
+
