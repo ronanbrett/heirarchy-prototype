@@ -1,27 +1,34 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
   OnDestroy,
+  OnInit,
+  ElementRef,
 } from '@angular/core';
 import { HierarchyLink } from 'd3-hierarchy';
-import { NodePositioningService } from '../../services/node-positioning.service';
-import { filter, map } from 'rxjs/operators';
-import { until } from 'protractor';
+import { fromEvent } from 'rxjs';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { untilDestroyed } from '../../../../core/rxjs/takeUntilDestroyed';
+import { ConnectionDrawService } from '../../services/connection-draw.service';
+import { NodePositioningService } from '../../services/node-positioning.service';
 
 @Component({
   selector: 'app-workspace-connection',
   templateUrl: './workspace-connection.component.html',
   styleUrls: ['./workspace-connection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class WorkspaceConnectionComponent implements OnInit, OnDestroy {
   @Input() link: HierarchyLink<any>;
 
+  @Input() isDrawable = false;
+  @Input() id: string;
+  element: HTMLElement;
+
   distance = 0;
+  left = 0;
   width = 0;
 
   isReversed = false;
@@ -29,10 +36,17 @@ export class WorkspaceConnectionComponent implements OnInit, OnDestroy {
 
   constructor(
     private cd: ChangeDetectorRef,
+    private el: ElementRef,
     private positioning: NodePositioningService,
+    private connectionService: ConnectionDrawService,
   ) {}
 
   ngOnInit() {
+    this.element = this.el.nativeElement;
+    this.listenToLocation();
+  }
+
+  listenToLocation() {
     this.positioning.locations$
       .pipe(
         map(x => ({
@@ -49,6 +63,7 @@ export class WorkspaceConnectionComponent implements OnInit, OnDestroy {
         this.cd.detach();
 
         const distance = n.target.x - n.src.x;
+
         this.distance = distance;
         this.width = Math.abs(this.distance + 20);
         this.generateLink(distance);

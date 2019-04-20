@@ -1,0 +1,12 @@
+@import 'src/styles/settings/settings';
+
+:host {
+
+  header {
+    margin-left: $spacing-m;
+  }
+  
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

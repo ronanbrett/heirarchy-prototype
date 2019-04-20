@@ -1,13 +1,21 @@
-import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { untilDestroyed } from '../../../../core/rxjs/takeUntilDestroyed';
 import { NodePositioningService } from '../../services/node-positioning.service';
+import { ConnectionDrawService } from '../../services/connection-draw.service';
 
 @Component({
   selector: 'app-workspace-layout',
   templateUrl: './workspace-layout.component.html',
   styleUrls: ['./workspace-layout.component.scss'],
-  providers: [NodePositioningService],
+  providers: [NodePositioningService, ConnectionDrawService],
 })
 export class WorkspaceLayoutComponent implements OnInit, OnDestroy {
   items: any;
@@ -24,12 +32,18 @@ export class WorkspaceLayoutComponent implements OnInit, OnDestroy {
   @HostListener('mouseup')
   onMouseUp() {
     this.cancelDraftNode();
+    this.connectionService.end();
   }
 
   constructor(
+    private connectionService: ConnectionDrawService,
     public positioning: NodePositioningService,
     private sanitizer: DomSanitizer,
   ) {}
+
+  trackByID(item) {
+    return item.id;
+  }
 
   ngOnInit() {
     this.positioning.heirarchy$

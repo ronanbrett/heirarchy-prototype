@@ -1,34 +1,10 @@
+import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
+import { stratify } from 'd3-hierarchy';
 import { BehaviorSubject } from 'rxjs';
+import { Heirarchy, NodeItem, NodeType } from '../interfaces/NodeType';
 
-import { stratify, HierarchyLink } from 'd3-hierarchy';
-
-let ID = 50;
-
-export enum NodeType {
-  empty,
-  active,
-  root,
-}
-
-export interface GridItem {
-  id: number;
-  children: NodeItem[];
-}
-
-export interface NodeItem {
-  id: string;
-  parent: string;
-  type: NodeType;
-}
-
-export interface Heirarchy {
-  items: NodeItem[];
-  graph: {};
-  maxCols: number;
-  maxDepth: number;
-  links: any;
-}
+let ID = 999;
 
 export const NODE_ITEMS: NodeItem[] = [
   {
@@ -87,6 +63,31 @@ export const NODE_ITEMS: NodeItem[] = [
     type: NodeType.active,
   },
   {
+    id: 'id-14',
+    parent: 'id-10',
+    type: NodeType.active,
+  },
+  {
+    id: 'id-15',
+    parent: 'id-14',
+    type: NodeType.active,
+  },
+  {
+    id: 'id-16',
+    parent: 'id-15',
+    type: NodeType.active,
+  },
+  {
+    id: 'id-17',
+    parent: 'id-16',
+    type: NodeType.active,
+  },
+  {
+    id: 'id-18',
+    parent: 'id-17',
+    type: NodeType.active,
+  },
+  {
     id: 'id-11',
     parent: 'id-9',
     type: NodeType.active,
@@ -108,13 +109,37 @@ export const NODE_ITEMS: NodeItem[] = [
   },
 ];
 
+const TEMP_LIST = [];
+let NODE_COUNT = 1;
+
+function generateTree() {
+  if (TEMP_LIST.length === 0) {
+    return TEMP_LIST.push({
+      id: 'id-0',
+      parent: null,
+      type: NodeType.root,
+    });
+  }
+  TEMP_LIST.push({
+    id: `id-${NODE_COUNT++}`,
+    parent: `${TEMP_LIST[Math.floor(Math.random() * TEMP_LIST.length)].id}`,
+    type: NodeType.active,
+  });
+}
+
 @Injectable()
 export class NodePositioningService {
   locations$: BehaviorSubject<any> = new BehaviorSubject({});
   heirarchy$: BehaviorSubject<Heirarchy> = new BehaviorSubject(null);
   grid$: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor() {
+  blockScrollStrategy = new BlockScrollStrategy(this.viewPortRuler, document);
+
+  constructor(private viewPortRuler: ViewportRuler) {
+    for (let index = 0; index < 600; index++) {
+      generateTree();
+    }
+
     const heirarchy = this.buildHierarchy(NODE_ITEMS);
     const grid = this.generateGrid(heirarchy);
     this.heirarchy$.next(heirarchy);
@@ -122,10 +147,13 @@ export class NodePositioningService {
   }
 
   addTempNode(previousId: string) {
+    // Block Scroll On Layout Recreation
+    this.blockScrollStrategy.enable();
     const items = [
       { id: `id-${ID++}`, parent: previousId, type: NodeType.empty },
       ...NODE_ITEMS,
     ];
+
     const heirarchy = this.buildHierarchy(items);
     const grid = this.generateGrid(heirarchy);
     this.heirarchy$.next(heirarchy);
@@ -138,12 +166,15 @@ export class NodePositioningService {
     this.heirarchy$.next(heirarchy);
     const grid = this.generateGrid(heirarchy);
     this.grid$.next(grid);
+    this.blockScrollStrategy.disable();
   }
 
   buildHierarchy(nodeList: NodeItem[]): Heirarchy {
     const roots = stratify()
       .id((d: NodeItem) => d.id as string)
       .parentId((d: NodeItem) => d.parent as string)(nodeList);
+
+    console.log(roots);
 
     const links = roots.links().reduce((accum, val) => {
       const prevArray = accum[val.source.id] || [];

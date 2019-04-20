@@ -1,11 +1,22 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding, Renderer2, ElementRef, EventEmitter, Output } from '@angular/core';
-import { NodePositioningService, NodeItem } from '../../../services/node-positioning.service';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  HostBinding,
+  Renderer2,
+  ElementRef,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { NodePositioningService } from '../../../services/node-positioning.service';
+import { NodeItem } from '../../../interfaces/NodeType';
 
 @Component({
   selector: 'app-workspace-node-root',
   templateUrl: './workspace-node-root.component.html',
   styleUrls: ['./workspace-node-root.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkspaceNodeRootComponent implements OnInit {
   @Input() links: any;
@@ -17,12 +28,11 @@ export class WorkspaceNodeRootComponent implements OnInit {
   @Output() init: EventEmitter<void> = new EventEmitter();
   @Output() end: EventEmitter<void> = new EventEmitter();
 
-
   constructor(
     private positioningService: NodePositioningService,
     private renderer: Renderer2,
-    private el: ElementRef
-  ) { }
+    private el: ElementRef,
+  ) {}
 
   ngOnInit() {
     this.renderer.setStyle(this.el.nativeElement, 'left', this.x);
@@ -50,5 +60,4 @@ export class WorkspaceNodeRootComponent implements OnInit {
   endLine() {
     console.log('end');
   }
-
 }

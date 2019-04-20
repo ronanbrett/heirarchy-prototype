@@ -6,10 +6,10 @@
 
 <div class="workspace-grid">
   <div
-    *ngFor="let gi of (positioning.grid$ | async); let gindex = index"
+    *ngFor="let gi of (positioning.grid$ | async); let gindex = index; trackBy: trackByID"
     class="grid-item"
   >
-    <ng-container *ngFor="let item of getItems(gindex, gi)">
+    <ng-container *ngFor="let item of getItems(gindex, gi); trackBy: trackByID">
       <app-workspace-node-leaf
         *ngIf="item.type === 1"
         [links]="getLinks(item.id)"
@@ -26,3 +26,5 @@
     </ng-container>
   </div>
 </div>
+
+<app-workspace-connection-layer></app-workspace-connection-layer>

@@ -1,0 +1,33 @@
+@import 'src/styles/settings/settings';
+
+:host {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: -1px;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+
+  * {
+    box-sizing: border-box;
+
+  }
+
+  svg {
+    z-index: 2;
+    position: absolute;
+    transform-origin:  0px 0px;
+    will-change: auto;
+
+    path {
+      stroke-width: 3;
+      stroke: $color-dark-blue;
+      stroke-opacity: 0.7;
+      stroke-dasharray: 7;
+      fill: none;
+      transform-origin:  0px 0px;
+
+    }
+  }
+}
