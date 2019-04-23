@@ -11,13 +11,12 @@
 
   * {
     box-sizing: border-box;
-
   }
 
   svg {
     z-index: 2;
     position: absolute;
-    transform-origin:  0px 0px;
+    transform-origin: 0px 0px;
     will-change: auto;
 
     path {
@@ -26,8 +25,7 @@
       stroke-opacity: 0.7;
       stroke-dasharray: 7;
       fill: none;
-      transform-origin:  0px 0px;
-
+      transform-origin: 0px 0px;
     }
   }
 }

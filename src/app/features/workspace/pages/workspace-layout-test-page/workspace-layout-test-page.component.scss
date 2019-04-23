@@ -1,0 +1,19 @@
+@import 'src/styles/settings/settings';
+
+:host {
+  position: relative;
+  display: flex;
+
+  overflow-y: auto;
+
+  background-color: $color-page-bg;
+
+  svg {
+    path {
+      stroke-width: 3;
+      stroke: $color-dark-blue;
+      fill: none;
+    }
+  }
+
+}

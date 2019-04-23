@@ -1,3 +1,25 @@
-<p>
-  workspace-layout-infinite works!
-</p>
+<ng-container *ngFor="let item of (layoutService.links$ | async)">
+  <app-workspace-connection-link
+    [ngStyle]="{ 'left.px':  item.target.childParent?.left || item.source.left, 'top.px': (item.target.childParent?.top || item.source.top) + 100 }"
+    [origin]="item.source"
+    [link]="item.target"
+  ></app-workspace-connection-link>
+</ng-container>
+
+<ng-container
+  *ngFor="
+    let item of (layoutService.items$ | async | keyvalue);
+    trackBy: trackByID
+  "
+>
+  <div [ngStyle]="{ 'left.px': item.value.left, 'top.px': item.value.top }">
+    <app-workspace-node-leaf-fixed
+      (init)="createDraftNode(item.value.id)"
+      (end)="cancelDraftNode()"
+      [item]="item.value"
+      >{{ item.value.id }}
+    </app-workspace-node-leaf-fixed>
+  </div>
+</ng-container>
+
+<app-workspace-connection-layer></app-workspace-connection-layer>

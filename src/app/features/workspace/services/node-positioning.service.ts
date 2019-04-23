@@ -33,6 +33,16 @@ export const NODE_ITEMS: NodeItem[] = [
     type: NodeType.active,
   },
   {
+    id: 'id-33',
+    parent: 'id-1',
+    type: NodeType.active,
+  },
+  {
+    id: 'id-34',
+    parent: 'id-1',
+    type: NodeType.active,
+  },
+  {
     id: 'id-9',
     parent: 'id-4',
     type: NodeType.active,
@@ -129,6 +139,8 @@ function generateTree() {
 
 @Injectable()
 export class NodePositioningService {
+  items = NODE_ITEMS;
+
   locations$: BehaviorSubject<any> = new BehaviorSubject({});
   heirarchy$: BehaviorSubject<Heirarchy> = new BehaviorSubject(null);
   grid$: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -140,7 +152,9 @@ export class NodePositioningService {
       generateTree();
     }
 
-    const heirarchy = this.buildHierarchy(NODE_ITEMS);
+    this.items = TEMP_LIST;
+
+    const heirarchy = this.buildHierarchy(this.items);
     const grid = this.generateGrid(heirarchy);
     this.heirarchy$.next(heirarchy);
     this.grid$.next(grid);
@@ -151,7 +165,7 @@ export class NodePositioningService {
     this.blockScrollStrategy.enable();
     const items = [
       { id: `id-${ID++}`, parent: previousId, type: NodeType.empty },
-      ...NODE_ITEMS,
+      ...this.items,
     ];
 
     const heirarchy = this.buildHierarchy(items);
@@ -161,7 +175,7 @@ export class NodePositioningService {
   }
 
   removeTempNode() {
-    const items = NODE_ITEMS;
+    const items = this.items;
     const heirarchy = this.buildHierarchy(items);
     this.heirarchy$.next(heirarchy);
     const grid = this.generateGrid(heirarchy);

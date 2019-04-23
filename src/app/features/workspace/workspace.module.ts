@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { WorkspaceHomePageModule } from './pages/workspace-home-page/workspace-home-page.module';
+import { WorkspaceLayoutTestPageModule } from './pages/workspace-layout-test-page/workspace-layout-test-page.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     WorkspaceRoutingModule,
-    WorkspaceHomePageModule
+    WorkspaceHomePageModule,
+    WorkspaceLayoutTestPageModule
   ]
 })
 export class WorkspaceModule { }

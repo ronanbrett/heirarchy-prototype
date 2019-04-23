@@ -7,20 +7,18 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  NodePositioningService,
-} from '../../../services/node-positioning.service';
-import { NodeItem } from "../../../interfaces/NodeType";
+import { NodePositioningService } from '../../../services/node-positioning.service';
+import { NodeItem, HeirarchyNodeWithLink } from '../../../interfaces/NodeType';
 import { ConnectionDrawService } from '../../../services/connection-draw.service';
 
 @Component({
   selector: 'app-workspace-node-leaf',
   templateUrl: './workspace-node-leaf.component.html',
   styleUrls: ['./workspace-node-leaf.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkspaceNodeLeafComponent implements OnInit {
-  @Input() item: NodeItem;
+  @Input() item: HeirarchyNodeWithLink;
   @Input() links: any;
   @Output() init: EventEmitter<void> = new EventEmitter();
   @Output() end: EventEmitter<void> = new EventEmitter();

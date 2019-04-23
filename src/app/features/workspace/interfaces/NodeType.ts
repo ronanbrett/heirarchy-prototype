@@ -1,7 +1,11 @@
+import { HierarchyLink, HierarchyNode } from 'd3-hierarchy';
+
 export enum NodeType {
   empty,
   active,
-  root
+  root,
+  child,
+  group
 }
 export interface GridItem {
   id: number;
@@ -18,4 +22,10 @@ export interface Heirarchy {
   maxCols: number;
   maxDepth: number;
   links: any;
+}
+
+export interface HeirarchyNodeWithLink extends HierarchyNode<any> {
+  left: number;
+  top: number;
+  childParent: HeirarchyNodeWithLink;
 }

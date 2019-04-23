@@ -1,0 +1,9 @@
+<div class="node">
+  <div class="node__extender node__extender--top"></div>
+  <header>{{getType()}} <ng-content></ng-content></header>
+  <div
+    #el
+    (mousedown)="startLine($event, el)"
+    class="node__extender node__extender--btm"
+  ></div>
+</div>
