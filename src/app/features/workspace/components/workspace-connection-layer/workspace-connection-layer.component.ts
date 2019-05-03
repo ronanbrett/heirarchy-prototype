@@ -3,16 +3,17 @@ import {
   OnInit,
   ElementRef,
   ChangeDetectorRef,
-  HostBinding,
+  HostBinding
 } from '@angular/core';
 import { ConnectionDrawService } from '../../services/connection-draw.service';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { detectIE11OrLower } from '../../../../core/compat/util.ie-detect';
 
 @Component({
   selector: 'app-workspace-connection-layer',
   templateUrl: './workspace-connection-layer.component.html',
-  styleUrls: ['./workspace-connection-layer.component.scss'],
+  styleUrls: ['./workspace-connection-layer.component.scss']
 })
 export class WorkspaceConnectionLayerComponent implements OnInit {
   width = 0;
@@ -35,7 +36,7 @@ export class WorkspaceConnectionLayerComponent implements OnInit {
   constructor(
     private el: ElementRef,
     private cd: ChangeDetectorRef,
-    private connectionService: ConnectionDrawService,
+    private connectionService: ConnectionDrawService
   ) {}
 
   ngOnInit() {
@@ -64,7 +65,6 @@ export class WorkspaceConnectionLayerComponent implements OnInit {
   }
 
   drawLink({ x, y }: MouseEvent) {
-
     const x1 = x;
     const y1 = y;
 
@@ -83,7 +83,7 @@ export class WorkspaceConnectionLayerComponent implements OnInit {
       this.isReversed = true;
       this.left = this.originalLeft - Math.abs(distance);
       this.path = `M 3, ${height} C 3, ${dx * 0.25}, ${Math.abs(
-        distance,
+        distance
       )}, ${height * 0.75}, ${Math.abs(distance)} 0`;
     } else {
       this.isReversed = false;
@@ -92,6 +92,5 @@ export class WorkspaceConnectionLayerComponent implements OnInit {
       this.path = `M 3, 0 C ${dx * 0.25}, ${height *
         0.75}, ${distance}, ${height * 0.25}, ${distance}, ${height}`;
     }
-
   }
 }

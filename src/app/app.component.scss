@@ -1,11 +1,12 @@
 @import 'src/styles/settings/settings';
 
 :host {
-
   header {
-    margin-left: $spacing-m;
+    padding-left: $spacing-m;
+    box-shadow: 0px 6px 12px 0px rgba(152, 152, 152, 0.12);
+    z-index: 9999;
   }
-  
+
   display: flex;
   flex-direction: column;
   height: 100%;

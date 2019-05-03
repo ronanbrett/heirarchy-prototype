@@ -1,0 +1,12 @@
+<button mat-icon-button (click)="close()">
+  <mat-icon>close</mat-icon>
+</button>
+
+<header>
+  <h3>Attach a Node</h3>
+  <p>Search for the node you want to attach</p>
+</header>
+<app-query-search-field
+  [fields]="fields"
+  [links]="links"
+></app-query-search-field>

@@ -1,6 +1,9 @@
-<ng-container *ngFor="let item of (layoutService.links$ | async)">
+<ng-container *ngFor="let item of layoutService.links$ | async">
   <app-workspace-connection-link
-    [ngStyle]="{ 'left.px':  item.target.childParent?.left || item.source.left, 'top.px': (item.target.childParent?.top || item.source.top) + 100 }"
+    [ngStyle]="{
+      'left.px': item.target.childParent?.left || item.source.left,
+      'top.px': (item.target.childParent?.top || item.source.top) + 100
+    }"
     [origin]="item.source"
     [link]="item.target"
   ></app-workspace-connection-link>
@@ -8,13 +11,21 @@
 
 <ng-container
   *ngFor="
-    let item of (layoutService.items$ | async | keyvalue);
+    let item of layoutService.items$ | async | keyvalue;
     trackBy: trackByID
   "
 >
-  <div [ngStyle]="{ 'left.px': item.value.left, 'top.px': item.value.top }">
+  <div
+    class="position"
+    [ngStyle]="{
+      transform:
+        'translate3d(' + item.value.left + 'px, ' + item.value.top + 'px, 0)'
+    }"
+  >
     <app-workspace-node-leaf-fixed
       (init)="createDraftNode(item.value.id)"
+      (mouseenter)="setActiveNode(item.value)"
+      (mouseleave)="setActiveNode(item.value)"
       (end)="cancelDraftNode()"
       [item]="item.value"
       >{{ item.value.id }}

@@ -1,0 +1,16 @@
+
+:host {
+  mat-form-field {
+    width: 100%;
+
+    mat-icon {
+      color: rgba(255,185,67,1);
+      transform: rotate(45deg);
+      transition: 0.3s all cubic-bezier(0.19, 1, 0.22, 1);
+      &.is-valid {
+        transform: none;
+        color: #00915a
+      }
+    }
+  }
+}

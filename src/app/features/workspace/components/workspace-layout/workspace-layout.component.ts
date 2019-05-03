@@ -29,8 +29,9 @@ export class WorkspaceLayoutComponent implements OnInit, OnDestroy {
   private cssVariable: SafeStyle = '' + this.property;
   private cols = 0;
 
-  @HostListener('mouseup')
+  @HostListener('window:mouseup')
   onMouseUp() {
+    console.log('hi!');
     this.cancelDraftNode();
     this.connectionService.end();
   }

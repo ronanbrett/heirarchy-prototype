@@ -15,8 +15,9 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:build",
           "options": {
+            "extraWebpackConfig": "webpack.extra.js",
             "outputPath": "dist/policy-tree-proto",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -68,8 +69,10 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
+            "extraWebpackConfig": "webpack.extra.js",
+            "port": 4202,
             "browserTarget": "policy-tree-proto:build"
           },
           "configurations": {
@@ -89,7 +92,7 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "ngx-build-plus:karma",
           "options": {
             "watch": true
           }

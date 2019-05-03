@@ -1,6 +1,11 @@
-<mat-sidenav-container class="container">
-  <mat-sidenav mode="side">
-    <h1>Hello</h1>
+<mat-sidenav-container class="container" (backdropClick)="sideNavClosing()">
+  <mat-sidenav position="end" mode="side" [opened]="isSideOpen" >
+    <router-outlet
+      (deactivate)="closeSideNav()"
+      (activate)="openSideNav()"
+      class="side"
+      name="side"
+    ></router-outlet>
   </mat-sidenav>
   <mat-sidenav-content><ng-content></ng-content></mat-sidenav-content>
 </mat-sidenav-container>

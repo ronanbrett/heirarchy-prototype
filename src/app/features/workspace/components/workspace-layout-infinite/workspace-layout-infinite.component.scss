@@ -2,12 +2,14 @@
 
 :host {
   position: relative;
-  height: 3000px;
   margin: $spacing-m $spacing-m;
 
-  width: 2400px;
 
   & > div {
-    position: absolute
+    position: absolute;
+  }
+
+  .position {
+    will-change: transform;
   }
 }

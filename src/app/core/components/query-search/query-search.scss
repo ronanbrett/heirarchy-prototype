@@ -1,0 +1,43 @@
+$mat-autocomplete-panel-max-height: 256px !default;
+$mat-autocomplete-panel-border-radius: 4px !default;
+
+$mat-menu-overlay-min-width: 112px !default;   // 56 * 2
+$mat-menu-overlay-max-width: 448px !default;   // 56 * 5
+
+.query-search-panel {
+  visibility: hidden;
+  max-width: none;
+  max-height: $mat-autocomplete-panel-max-height;
+  position: relative;
+  width: 100%;
+  border-bottom-left-radius: $mat-autocomplete-panel-border-radius;
+  border-bottom-right-radius: $mat-autocomplete-panel-border-radius;
+
+  min-width: $mat-menu-overlay-min-width;
+  max-width: $mat-menu-overlay-max-width;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  background: white;
+  color: black;
+
+  &.query-search-visible {
+    visibility: visible;
+  }
+
+  &.query-search-hidden {
+    visibility: hidden;
+  }
+
+  .query-search-panel-above & {
+    border-radius: 0;
+    border-top-left-radius: $mat-autocomplete-panel-border-radius;
+    border-top-right-radius: $mat-autocomplete-panel-border-radius;
+  }
+
+  // We need to offset horizontal dividers by their height, because
+  // they throw off the keyboard navigation inside the panel.
+  .mat-divider-horizontal {
+    margin-top: -1px;
+  }
+}

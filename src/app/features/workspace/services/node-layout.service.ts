@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { NODE_ITEMS, HUGE_LIST } from '../data/workspace-node-list.const';
 import { stratify, HierarchyNode, HierarchyLink, tree } from 'd3-hierarchy';
+import { proxy } from 'comlinkjs';
 import {
   NodeItem,
   NodeType,
-  HeirarchyNodeWithLink,
+  HeirarchyNodeWithLink
 } from '../interfaces/NodeType';
 import { BehaviorSubject } from 'rxjs';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 let ID = 999;
+
+// const LayoutWorker = proxy<
+//   typeof import('../workers/layout-worker').LayoutWorker
+// >(new (Worker as any)('../workers/layout-worker', { type: 'module' }));
 
 const TEMP_LIST = [];
 let NODE_COUNT = 1;
@@ -17,26 +22,26 @@ function generateTree() {
     return TEMP_LIST.push({
       id: 'id-0',
       parent: null,
-      type: NodeType.root,
+      type: NodeType.root
     });
   }
   if (NODE_COUNT < 20) {
     return TEMP_LIST.push({
       id: `id-${NODE_COUNT++}`,
       parent: `${TEMP_LIST[Math.floor(Math.random() * TEMP_LIST.length)].id}`,
-      type: NodeType.group,
+      type: NodeType.group
     });
   }
 
   TEMP_LIST.push({
     id: `id-${NODE_COUNT++}`,
     parent: `${TEMP_LIST[Math.floor(Math.random() * 20)].id}`,
-    type: NodeType.child,
+    type: NodeType.child
   });
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NodeLayoutService {
   items = NODE_ITEMS;
@@ -53,11 +58,11 @@ export class NodeLayoutService {
   pageWidth: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(private viewPortRuler: ViewportRuler) {
-    for (let index = 0; index < 500; index++) {
+    for (let index = 0; index < 150; index++) {
       generateTree();
     }
 
-    this.items = HUGE_LIST;
+    this.items = TEMP_LIST;
 
     const roots = this.generateTree(this.items);
     this.generateTreePositions(roots);
@@ -66,7 +71,7 @@ export class NodeLayoutService {
   createTempNode(previousId: string) {
     const items = [
       { id: `id-${ID++}`, parent: previousId, type: NodeType.empty },
-      ...this.items,
+      ...this.items
     ];
 
     const roots = this.generateTree(items);
@@ -86,7 +91,20 @@ export class NodeLayoutService {
     return root;
   }
 
-  generateTreePositions(node: HierarchyNode<any>) {
+  generateTreePositions(node: any) {
+    // const worker = await new LayoutWorker();
+    // const results = await worker.generateTreePositions({
+    //   node,
+    //   NODE_HEIGHT: this.NODE_HEIGHT,
+    //   NODE_WIDTH: this.NODE_WIDTH
+    // });
+
+    // this.pageHeight.next(results.pageHeight + this.NODE_HEIGHT);
+    // this.pageWidth.next(results.pageWidth + this.NODE_WIDTH + 30);
+
+    // this.links$.next(results.links);
+    // this.items$.next(results.items);
+
     const itemsWithPositions = {};
     const tempItems = {};
 

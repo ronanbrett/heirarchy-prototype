@@ -1,0 +1,21 @@
+<mat-form-field>
+  <mat-icon [class.is-valid]="isValidQuery" matSuffix>{{
+    isValidQuery ? 'check_circle' : 'add_circle'
+  }}</mat-icon>
+
+  <input
+    type="text"
+    placeholder="Enter your Query"
+    matInput
+    [formControl]="control"
+    [etfQuerySearch]="search"
+  />
+</mat-form-field>
+<etf-query-search
+  (optionSelected)="selectOption($event)"
+  #search="etfQuerySearch"
+>
+  <mat-option *ngFor="let option of options | async" [value]="option">{{
+    option
+  }}</mat-option>
+</etf-query-search>
