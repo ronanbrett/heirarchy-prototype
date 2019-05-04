@@ -7,17 +7,17 @@ export class ConnectionDrawService {
   activeNode$: BehaviorSubject<{
     id: string;
     event?: MouseEvent;
-    location?: {x: number, y: number};
+    location?: { x: number; y: number };
   }> = new BehaviorSubject({ id: null });
   activeNode = this.activeNode$.pipe(
-    distinctUntilChanged((a, b) => a.id === b.id),
+    distinctUntilChanged((a, b) => a.id === b.id)
   );
 
   killActive: Subject<void> = new Subject();
 
   constructor() {}
 
-  start(id: string, event: MouseEvent, location: {x: number, y: number}) {
+  start(id: string, event: MouseEvent, location: { x: number; y: number }) {
     this.activeNode$.next({ id, event, location });
   }
 

@@ -1,19 +1,10 @@
-import { Injectable } from '@angular/core';
-import { NODE_ITEMS, HUGE_LIST } from '../data/workspace-node-list.const';
-import { stratify, HierarchyNode, HierarchyLink, tree } from 'd3-hierarchy';
-import { proxy } from 'comlinkjs';
-import {
-  NodeItem,
-  NodeType,
-  HeirarchyNodeWithLink
-} from '../interfaces/NodeType';
-import { BehaviorSubject } from 'rxjs';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import { Injectable } from '@angular/core';
+import { stratify } from 'd3-hierarchy';
+import { BehaviorSubject } from 'rxjs';
+import { NODE_ITEMS } from '../data/workspace-node-list.const';
+import { HeirarchyNodeWithLink, NodeItem, NodeType } from '../interfaces/NodeType';
 let ID = 999;
-
-// const LayoutWorker = proxy<
-//   typeof import('../workers/layout-worker').LayoutWorker
-// >(new (Worker as any)('../workers/layout-worker', { type: 'module' }));
 
 const TEMP_LIST = [];
 let NODE_COUNT = 1;
@@ -57,7 +48,9 @@ export class NodeLayoutService {
   pageHeight: BehaviorSubject<number> = new BehaviorSubject(0);
   pageWidth: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  constructor(private viewPortRuler: ViewportRuler) {
+  constructor(
+    private viewPortRuler: ViewportRuler
+  ) {
     for (let index = 0; index < 150; index++) {
       generateTree();
     }
@@ -83,6 +76,16 @@ export class NodeLayoutService {
     this.generateTreePositions(roots);
   }
 
+  confirmNode(parentId) {
+    const items = [
+      { id: `id-${ID++}`, parent: parentId, type: NodeType.child },
+      ...this.items
+    ];
+
+    const roots = this.generateTree(items);
+    this.generateTreePositions(roots);
+  }
+
   generateTree(items) {
     const root = stratify()
       .id((d: NodeItem) => d.id as string)
@@ -92,19 +95,6 @@ export class NodeLayoutService {
   }
 
   generateTreePositions(node: any) {
-    // const worker = await new LayoutWorker();
-    // const results = await worker.generateTreePositions({
-    //   node,
-    //   NODE_HEIGHT: this.NODE_HEIGHT,
-    //   NODE_WIDTH: this.NODE_WIDTH
-    // });
-
-    // this.pageHeight.next(results.pageHeight + this.NODE_HEIGHT);
-    // this.pageWidth.next(results.pageWidth + this.NODE_WIDTH + 30);
-
-    // this.links$.next(results.links);
-    // this.items$.next(results.items);
-
     const itemsWithPositions = {};
     const tempItems = {};
 

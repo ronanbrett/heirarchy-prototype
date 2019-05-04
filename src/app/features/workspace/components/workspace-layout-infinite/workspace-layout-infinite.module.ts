@@ -13,8 +13,6 @@ import { WorkspaceConnectionLinkModule } from '../workspace-connection-link/work
     WorkspaceConnectionLayerModule,
     WorkspaceConnectionLinkModule
   ],
-  exports: [
-    WorkspaceLayoutInfiniteComponent
-  ]
+  exports: [WorkspaceLayoutInfiniteComponent]
 })
-export class WorkspaceLayoutInfiniteModule { }
+export class WorkspaceLayoutInfiniteModule {}

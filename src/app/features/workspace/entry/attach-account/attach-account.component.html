@@ -1,4 +1,4 @@
-<button mat-icon-button (click)="close()">
+<button class='close-btn' mat-icon-button (click)="close()">
   <mat-icon>close</mat-icon>
 </button>
 
@@ -10,3 +10,6 @@
   [fields]="fields"
   [links]="links"
 ></app-query-search-field>
+
+
+<button (click)="addNode()" mat-button>Add</button>

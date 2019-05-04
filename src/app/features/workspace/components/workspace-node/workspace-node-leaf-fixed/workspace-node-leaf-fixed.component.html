@@ -1,6 +1,6 @@
 <div class="node node-type--{{ getType() }}">
   <div class="node__extender node__extender--top"></div>
-  <header>{{ getType() }} <ng-content></ng-content></header>
+  <header *ngIf="item.data.type !== types.empty">{{ getType() }} <ng-content></ng-content></header>
   <div
     #el
     (mousedown)="startLine($event, el)"

@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NodeLayoutService } from '../../services/node-layout.service';
-import { NodePositioningService } from '../../services/node-positioning.service';
 import { ConnectionDrawService } from '../../services/connection-draw.service';
 import { NodeType } from '../../interfaces/NodeType';
 import { Router } from '@angular/router';
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-workspace-layout-infinite',
   templateUrl: './workspace-layout-infinite.component.html',
   styleUrls: ['./workspace-layout-infinite.component.scss'],
-  providers: [NodePositioningService, ConnectionDrawService]
+  providers: [ConnectionDrawService]
 })
 export class WorkspaceLayoutInfiniteComponent implements OnInit {
   activeNode = null;
@@ -23,10 +22,11 @@ export class WorkspaceLayoutInfiniteComponent implements OnInit {
 
   @HostListener('window:mouseup')
   onMouseUp() {
-    if (this.activeNode &&  this.activeNode.data.type === NodeType.empty) {
+    if (this.activeNode && this.activeNode.data.type === NodeType.empty) {
       this.openSidePanel();
+    } else {
+      this.cancelDraftNode();
     }
-    this.cancelDraftNode();
     this.connectionService.end();
   }
 
@@ -56,8 +56,8 @@ export class WorkspaceLayoutInfiniteComponent implements OnInit {
   }
 
   openSidePanel() {
-    this.router.navigate(
-      ['workspace',{ outlets: { side: 'attach' } }],
-    );
+    this.router.navigate(['workspace', { outlets: { side: 'attach' } }], {queryParams: {
+      parentId: this.activeNode.data.parent
+    }});
   }
 }
