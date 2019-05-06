@@ -60,11 +60,9 @@ export class NodeLayoutService {
     this.generateTreePositions(roots);
   }
 
-  confirmNode(parentId) {
-    this.nodeService.add({
-      id: `id-${ID++}`,
-      parent: parentId,
-      type: ISNodeType.child
+  moveNode(fromNodeId: string, toNodeId: string) {
+    this.nodeService.update(fromNodeId, {
+      parent: toNodeId
     });
   }
 
@@ -83,7 +81,7 @@ export class NodeLayoutService {
       d.children = d._children;
       d._children = null;
     }
-  }
+  };
 
   generateTreePositions(node: any) {
     const itemsWithPositions = {};
