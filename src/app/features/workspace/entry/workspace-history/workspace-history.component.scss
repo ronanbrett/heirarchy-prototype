@@ -1,0 +1,60 @@
+@import 'src/styles/settings/settings';
+
+:host {
+  padding: $spacing-m;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 300px;
+
+  header {
+    h4 {
+      margin: 0 0 $spacing-s;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: $spacing-m;
+    }
+  }
+
+  .tree {
+    width: 100%;
+    height: 90px;
+    margin-bottom: $spacing-s;
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    cursor: pointer;
+    padding: $spacing-s;
+
+    box-sizing: border-box;
+    background-color: $color-gray-dark;
+    box-shadow: 0px 2px 8px rgba(153,152,152,0.12);
+
+    p {
+      margin: 0;
+    }
+
+    h5 {
+      margin: 0;
+      font-weight: 400;
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+
+    &--active {
+      background-image: linear-gradient(90deg, #007942 0%, #00AC7B 100%);
+      color: white;
+      box-shadow: 0px 2px 8px rgba(84,88,87,0.47);
+    }
+  }
+}

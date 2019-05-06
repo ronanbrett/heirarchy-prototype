@@ -1,41 +1,20 @@
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
-import { stratify } from 'd3-hierarchy';
+import { stratify, HierarchyNode } from 'd3-hierarchy';
 import { BehaviorSubject } from 'rxjs';
-import { NODE_ITEMS } from '../data/workspace-node-list.const';
-import { HeirarchyNodeWithLink, NodeItem, NodeType } from '../interfaces/NodeType';
+import { ISNodesQuery } from 'src/app/state/is-nodes/is-nodes.query';
+import { HeirarchyNodeWithLink, NodeItem } from '../interfaces/NodeType';
+import { ISNodeType } from 'src/app/state/is-nodes/is-node.model';
+import { IsNodesService } from 'src/app/state/is-nodes/is-nodes.service';
 let ID = 999;
-
-const TEMP_LIST = [];
-let NODE_COUNT = 1;
-function generateTree() {
-  if (TEMP_LIST.length === 0) {
-    return TEMP_LIST.push({
-      id: 'id-0',
-      parent: null,
-      type: NodeType.root
-    });
-  }
-  if (NODE_COUNT < 20) {
-    return TEMP_LIST.push({
-      id: `id-${NODE_COUNT++}`,
-      parent: `${TEMP_LIST[Math.floor(Math.random() * TEMP_LIST.length)].id}`,
-      type: NodeType.group
-    });
-  }
-
-  TEMP_LIST.push({
-    id: `id-${NODE_COUNT++}`,
-    parent: `${TEMP_LIST[Math.floor(Math.random() * 20)].id}`,
-    type: NodeType.child
-  });
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodeLayoutService {
-  items = NODE_ITEMS;
+  items;
+
+  isOpen = {};
 
   items$: BehaviorSubject<any> = new BehaviorSubject([]);
   links$: BehaviorSubject<any> = new BehaviorSubject([]);
@@ -49,21 +28,26 @@ export class NodeLayoutService {
   pageWidth: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(
+    private nodes: ISNodesQuery,
+    private nodeService: IsNodesService,
     private viewPortRuler: ViewportRuler
   ) {
-    for (let index = 0; index < 150; index++) {
-      generateTree();
-    }
+    this.nodes.selectAll().subscribe(n => {
+      this.items = n;
+      const roots = this.generateTree(n);
+      this.generateTreePositions(roots);
+    });
+  }
 
-    this.items = TEMP_LIST;
-
+  expandNode(id) {
+    this.isOpen[id] = true;
     const roots = this.generateTree(this.items);
     this.generateTreePositions(roots);
   }
 
   createTempNode(previousId: string) {
     const items = [
-      { id: `id-${ID++}`, parent: previousId, type: NodeType.empty },
+      { id: `id-${ID++}`, parent: previousId, type: ISNodeType.draft },
       ...this.items
     ];
 
@@ -77,21 +61,28 @@ export class NodeLayoutService {
   }
 
   confirmNode(parentId) {
-    const items = [
-      { id: `id-${ID++}`, parent: parentId, type: NodeType.child },
-      ...this.items
-    ];
-
-    const roots = this.generateTree(items);
-    this.generateTreePositions(roots);
+    this.nodeService.add({
+      id: `id-${ID++}`,
+      parent: parentId,
+      type: ISNodeType.child
+    });
   }
 
   generateTree(items) {
     const root = stratify()
       .id((d: NodeItem) => d.id as string)
       .parentId((d: NodeItem) => d.parent as string)(items);
-
     return root;
+  }
+
+  collapse = d => {
+    if (d.children && !this.isOpen[d.id]) {
+      d._children = d.children;
+      d.children = null;
+    } else if (d._children && this.isOpen[d.id]) {
+      d.children = d._children;
+      d._children = null;
+    }
   }
 
   generateTreePositions(node: any) {
@@ -106,13 +97,20 @@ export class NodeLayoutService {
 
     let previousNode: HeirarchyNodeWithLink;
 
+    // Collapse Nodes
+    // node.eachBefore((cNode: HeirarchyNodeWithLink) => {
+    //   if (cNode.data.type === ISNodeType.group && cNode.children) {
+    //     this.collapse(cNode);
+    //   }
+    // });
+
     node.eachBefore((currentNode: HeirarchyNodeWithLink) => {
       // If the Previous Node is not the Parent Node and the Parent Node of the Current Node
       // is not a Child Node, move the left offset over by one NODE_WIDTH
       if (
         previousNode &&
         previousNode.id !== currentNode.parent.id &&
-        currentNode.parent.data.type !== NodeType.child
+        currentNode.parent.data.type !== ISNodeType.child
       ) {
         leftOffset = leftOffset + this.NODE_WIDTH;
         topOffset = tempItems[currentNode.parent.id].top + this.NODE_HEIGHT;
@@ -122,11 +120,11 @@ export class NodeLayoutService {
       // the last item depth was less or equal to the current item, then we move this node
       // directly under the last item to create a series of child nodes in a line
       if (
-        (currentNode.data.type === NodeType.child &&
-          previousNode.data.type === NodeType.child &&
+        (currentNode.data.type === ISNodeType.child &&
+          previousNode.data.type === ISNodeType.child &&
           previousNode.depth <= currentNode.depth) ||
-        (currentNode.data.type === NodeType.child &&
-          previousNode.data.type === NodeType.empty &&
+        (currentNode.data.type === ISNodeType.child &&
+          previousNode.data.type === ISNodeType.draft &&
           previousNode.depth <= currentNode.depth + 1)
       ) {
         // add childParent to the currentNode here so that we can remap the connector nodes
@@ -157,6 +155,8 @@ export class NodeLayoutService {
     node.eachBefore(n => {
       itemsWithPositions[n.id] = { ...n };
     });
+
+    console.log(node);
 
     this.links$.next(node.links());
     this.items$.next(itemsWithPositions);

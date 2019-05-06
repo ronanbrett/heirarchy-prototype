@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <a
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="['/', 'workspace', { outlets: { startside: null } }]"
+      >Plan</a
+    >
+    <a
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="['/', 'workspace', { outlets: { startside: ['info'] } }]"
+      >Info</a
+    >
+    <a
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="['/', 'workspace', { outlets: { startside: ['history'] } }]"
+      >History</a
+    >
+
+    <div class="gap"></div>
+
+    <ng-container *ngIf="isNodeService.collection.hasPast">
+      <button (click)="reset()" mat-button>Reset</button>
+      <button color="primary" mat-flat-button>Save Changes</button>
+    </ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>

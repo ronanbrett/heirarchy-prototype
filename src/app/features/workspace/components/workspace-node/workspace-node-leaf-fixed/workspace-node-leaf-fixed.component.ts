@@ -6,9 +6,10 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { HeirarchyNodeWithLink, NodeType } from '../../../interfaces/NodeType';
+import { HeirarchyNodeWithLink } from '../../../interfaces/NodeType';
 import { ConnectionDrawService } from '../../../services/connection-draw.service';
 import { detectIE11OrLower } from '../../../../../core/compat/util.ie-detect';
+import { ISNodeType } from 'src/app/state/is-nodes/is-node.model';
 
 @Component({
   selector: 'app-workspace-node-leaf-fixed',
@@ -21,24 +22,34 @@ export class WorkspaceNodeLeafFixedComponent implements OnInit {
   @Output() init: EventEmitter<void> = new EventEmitter();
   @Output() end: EventEmitter<void> = new EventEmitter();
 
+  @Output() open: EventEmitter<HeirarchyNodeWithLink> = new EventEmitter();
+  @Output() expand: EventEmitter<string> = new EventEmitter();
+
   links: HeirarchyNodeWithLink[];
 
-  types = NodeType;
+  isCollapsed = false;
+
+  types = ISNodeType;
 
   type = null;
 
-  getType(){
-    return NodeType[this.item.data.type];
+  getType() {
+    return ISNodeType[this.item.data.type];
   }
 
   constructor(private connectionDrawService: ConnectionDrawService) {}
 
   ngOnInit() {
     this.links = this.item.children;
-    this.type = NodeType[this.item.data.type];
+    this.type = ISNodeType[this.item.data.type];
+    this.isCollapsed = this.item._children ? true : false;
   }
 
   startLine(event: MouseEvent, el: HTMLElement) {
+    if (this.item._children) {
+      this.isCollapsed = false;
+      return this.expand.next(this.item.id);
+    }
     event.preventDefault();
 
     if (!detectIE11OrLower()) {
@@ -52,6 +63,9 @@ export class WorkspaceNodeLeafFixedComponent implements OnInit {
 
   endLine() {
     this.end.next();
-    console.log('end');
+  }
+
+  openNode() {
+    this.open.next(this.item);
   }
 }

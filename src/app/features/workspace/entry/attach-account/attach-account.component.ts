@@ -3,6 +3,12 @@ import { QueryField } from '../../../../core/components/query-search/query-searc
 import { SyntaxKind } from '../../../../core/components/lexer/scanner.interfaces';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NodeLayoutService } from '../../services/node-layout.service';
+import { IsNodesService } from 'src/app/state/is-nodes/is-nodes.service';
+import { ISNodeType } from 'src/app/state/is-nodes/is-node.model';
+import { IsTreeService } from 'src/app/state/is-tree/is-tree.service';
+import { TREE_INTERACTIVE_STATE } from 'src/app/state/is-tree/is-tree.model';
+
+let ID = 5000;
 
 @Component({
   selector: 'app-attach-account',
@@ -30,6 +36,8 @@ export class AttachAccountComponent implements OnInit {
 
   constructor(
     private nodeLayoutService: NodeLayoutService,
+    private isNodeService: IsNodesService,
+    private isTreeService: IsTreeService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -40,6 +48,7 @@ export class AttachAccountComponent implements OnInit {
         this.close();
       }
       this.parentId = parentId;
+      this.isTreeService.updateInteractivity(TREE_INTERACTIVE_STATE.DISABLED);
     });
   }
 
@@ -47,16 +56,27 @@ export class AttachAccountComponent implements OnInit {
     if (!this.parentId) {
       throw new Error('Missing Parent ID');
     }
-    this.nodeLayoutService.confirmNode(this.parentId);
+    this.isNodeService.add({
+      id: `id-${ID++}`,
+      parent: this.parentId,
+      type: ISNodeType.child
+    });
+
+    this.close();
   }
 
-  close() {
-    console.log(this.activatedRoute);
+  close(withOutAdding = false) {
+    this.isTreeService.updateInteractivity(TREE_INTERACTIVE_STATE.ENABLED);
+
+    if (withOutAdding) {
+      this.nodeLayoutService.removeTempNode();
+    }
+
     this.router.navigate(
       [
         {
           outlets: {
-            side: null
+            endside: null
           }
         }
       ],

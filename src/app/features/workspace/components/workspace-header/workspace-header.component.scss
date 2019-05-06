@@ -1,0 +1,28 @@
+@import 'src/styles/settings/settings';
+
+:host {
+  mat-toolbar {
+    background-color: white;
+  }
+  mat-toolbar-row {
+    padding: 0;
+    display: flex;
+  }
+
+  a {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-right: $spacing-s;
+    &.active {
+      font-weight: 800;
+    }
+  }
+
+  .gap {
+    flex: 1 1 auto;
+  }
+
+  button {
+    margin-left: $spacing-s;
+  }
+}

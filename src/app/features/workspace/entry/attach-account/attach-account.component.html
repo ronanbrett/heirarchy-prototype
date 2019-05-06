@@ -1,9 +1,9 @@
-<button class='close-btn' mat-icon-button (click)="close()">
+<button class='close-btn' mat-icon-button (click)="close(true)">
   <mat-icon>close</mat-icon>
 </button>
 
 <header>
-  <h3>Attach a Node</h3>
+  <h3>Attach a Node to {{parentId}}</h3>
   <p>Search for the node you want to attach</p>
 </header>
 <app-query-search-field

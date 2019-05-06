@@ -5,6 +5,14 @@
   position: relative;
   will-change: auto;
 
+  ::ng-deep .hack_drag_handle  {
+    width: 35px;
+    height:35px;
+    z-index: 999;
+    transform: translate(-5px, -5px); 
+
+  } 
+
   .node {
     width: 220px;
     min-height: 100px;
@@ -13,6 +21,10 @@
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
+
+    &--grouped {
+      background-color: red;
+    }
 
     &-type--root {
       background-color: $color-dark-blue;
@@ -39,7 +51,28 @@
       }
     }
 
-    &-type--empty {
+    &-type--group {
+      min-height: 100px;
+
+      background-color: white;
+      box-shadow: 0 2px 12px 0 rgba(166, 166, 166, 0.43);
+
+      header {
+        background-color:  $color-dark-blue;
+        color: white;
+        font-size: 12px;
+      }
+
+      .node__extender {
+        background-color:  $color-dark-blue;;
+
+        &--btm {
+          background-color: white;
+        }
+      }
+    }
+
+    &-type--draft {
       color: $color-dark-blue;
 
       background-color: white;
@@ -51,7 +84,7 @@
         align-items: center;
       }
       .node__extender {
-        background-color:white;
+        background-color: white;
 
         &--btm {
           display: none;
@@ -59,17 +92,22 @@
       }
     }
 
-    &-type--group,
     &-type--child {
       min-height: 100px;
 
-      background-color: $color-almost-white;
+      background-color: white;
       box-shadow: 0 2px 12px 0 rgba(166, 166, 166, 0.43);
 
       header {
         background-color: $color-gray;
         color: $color-dark-blue;
         font-size: 12px;
+      }
+
+      .node__extender {
+        &--btm {
+          display: none;
+        }
       }
     }
 

@@ -3,10 +3,14 @@
 :host {
   position: relative;
   display: flex;
+  flex-direction: column;
 
   overflow-y: auto;
 
   background-color: $color-page-bg;
+
+  min-width: 100%;
+  min-height: 100%;
 
   svg {
     path {

@@ -1,131 +1,132 @@
-import { NodeItem, NodeType } from '../interfaces/NodeType';
+import { ISNodeType } from 'src/app/state/is-nodes/is-node.model';
+import { NodeItem } from '../interfaces/NodeType';
 
 export const NODE_ITEMS: NodeItem[] = [
   {
     id: 'id-0',
     parent: null,
-    type: NodeType.root,
+    type: ISNodeType.root
   },
   {
     id: 'id-1',
     parent: 'id-0',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-2',
     parent: 'id-0',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-3',
     parent: 'id-0',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-4',
     parent: 'id-0',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-5',
     parent: 'id-0',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-6',
     parent: 'id-1',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-7',
     parent: 'id-1',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-8',
     parent: 'id-2',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-9',
     parent: 'id-2',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-10',
     parent: 'id-3',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-11',
     parent: 'id-4',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-12',
     parent: 'id-5',
-    type: NodeType.group,
+    type: ISNodeType.group
   },
   {
     id: 'id-14',
     parent: 'id-6',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-15',
     parent: 'id-6',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-16',
     parent: 'id-6',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-17',
     parent: 'id-6',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-18',
     parent: 'id-6',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-19',
     parent: 'id-7',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-21',
     parent: 'id-7',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-22',
     parent: 'id-8',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-23',
     parent: 'id-8',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-24',
     parent: 'id-9',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-25',
     parent: 'id-9',
-    type: NodeType.child,
+    type: ISNodeType.child
   },
   {
     id: 'id-26',
     parent: 'id-9',
-    type: NodeType.child,
-  },
+    type: ISNodeType.child
+  }
 ];
 
 export const HUGE_LIST = [
@@ -178,5 +179,5 @@ export const HUGE_LIST = [
   { id: 'id-46', parent: 'id-15', type: 3 },
   { id: 'id-47', parent: 'id-13', type: 3 },
   { id: 'id-48', parent: 'id-15', type: 3 },
-  { id: 'id-49', parent: 'id-11', type: 3 },
+  { id: 'id-49', parent: 'id-11', type: 3 }
 ];

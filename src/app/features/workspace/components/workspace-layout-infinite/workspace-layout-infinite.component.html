@@ -9,26 +9,34 @@
   ></app-workspace-connection-link>
 </ng-container>
 
-<ng-container
-  *ngFor="
-    let item of layoutService.items$ | async | keyvalue;
-    trackBy: trackByID
-  "
->
+<ng-container cdkDropListGroup>
   <div
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListData]="item"
     class="position"
+    *ngFor="
+      let item of layoutService.items$ | async | keyvalue;
+      trackBy: trackByID
+    "
     [ngStyle]="{
       transform:
         'translate3d(' + item.value.left + 'px, ' + item.value.top + 'px, 0)'
     }"
   >
     <app-workspace-node-leaf-fixed
+      cdkDrag
       (init)="createDraftNode(item.value.id)"
+      (expand)="expandItem($event)"
+      (open)="openNode(item)"
       (mouseenter)="setActiveNode(item.value)"
-      (mouseleave)="setActiveNode(item.value)"
+      (mouseleave)="clearActiveNode()"
       (end)="cancelDraftNode()"
+      [cdkDragData]="item.value"
       [item]="item.value"
       >{{ item.value.id }}
+      <div slot="drag-handle" class="hack_drag_handle" cdkDragHandle></div>
+      <div class="fixed-leaf-placeholder" *cdkDragPlaceholder></div>
     </app-workspace-node-leaf-fixed>
   </div>
 </ng-container>

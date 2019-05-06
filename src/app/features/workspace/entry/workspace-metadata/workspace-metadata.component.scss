@@ -1,0 +1,22 @@
+@import 'src/styles/settings/settings';
+
+:host {
+  padding: $spacing-m;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 300px;
+
+  label {
+    text-transform: uppercase;
+    margin: 0 0 $spacing-s;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  h4 {
+    margin: 0 0 $spacing-m;
+    font-weight: 400;
+  }
+}

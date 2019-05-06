@@ -2,16 +2,16 @@ import {
   LayoutWorkerParams,
   LayoutWorkerResult
 } from '../interfaces/LayoutWorker';
-import { HeirarchyNodeWithLink, NodeType, NodeItem } from '../interfaces/NodeType';
 import { expose } from 'comlinkjs';
 import { stratify } from 'd3-hierarchy';
+import { ISNodeType } from 'src/app/state/is-nodes/is-node.model';
+import { HeirarchyNodeWithLink, NodeItem } from '../interfaces/NodeType';
 
 export class LayoutWorker {
   generateTreePositions({ node, NODE_HEIGHT, NODE_WIDTH }: LayoutWorkerParams) {
-
     node = stratify()
-    .id((d: NodeItem) => d.id as string)
-    .parentId((d: NodeItem) => d.parent as string)(node);
+      .id((d: NodeItem) => d.id as string)
+      .parentId((d: NodeItem) => d.parent as string)(node);
 
     const itemsWithPositions = {};
     const tempItems = {};
@@ -32,7 +32,7 @@ export class LayoutWorker {
       if (
         previousNode &&
         previousNode.id !== currentNode.parent.id &&
-        currentNode.parent.data.type !== NodeType.child
+        currentNode.parent.data.type !== ISNodeType.child
       ) {
         leftOffset = leftOffset + NODE_WIDTH;
         topOffset = tempItems[currentNode.parent.id].top + NODE_HEIGHT;
@@ -42,11 +42,11 @@ export class LayoutWorker {
       // the last item depth was less or equal to the current item, then we move this node
       // directly under the last item to create a series of child nodes in a line
       if (
-        (currentNode.data.type === NodeType.child &&
-          previousNode.data.type === NodeType.child &&
+        (currentNode.data.type === ISNodeType.child &&
+          previousNode.data.type === ISNodeType.child &&
           previousNode.depth <= currentNode.depth) ||
-        (currentNode.data.type === NodeType.child &&
-          previousNode.data.type === NodeType.empty &&
+        (currentNode.data.type === ISNodeType.child &&
+          previousNode.data.type === ISNodeType.draft &&
           previousNode.depth <= currentNode.depth + 1)
       ) {
         // add childParent to the currentNode here so that we can remap the connector nodes

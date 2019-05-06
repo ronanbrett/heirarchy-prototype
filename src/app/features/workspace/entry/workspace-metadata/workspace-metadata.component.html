@@ -1,0 +1,12 @@
+<label for="">Name</label>
+<h4>{{(tree | async).name}}</h4>
+<label for="">Type</label>
+<h4>{{(tree | async).type}}</h4>
+<label for="">Description</label>
+<h4>{{(tree | async).description}}</h4>
+<label for="">Life Cycle Status</label>
+<app-status-indicator [status]="status" [activeId]="(tree | async).lifeCycleStatus"></app-status-indicator>
+<label for="">Effective Date</label>
+<h4>{{(tree | async).effectiveDateStart | date}} - {{(tree | async).effectiveDateEnd | date}}</h4>
+<label for="">Version Date</label>
+<h4>{{(tree | async).versionDateStart | date}}</h4>

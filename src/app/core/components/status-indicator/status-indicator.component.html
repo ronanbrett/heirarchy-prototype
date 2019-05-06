@@ -1,0 +1,12 @@
+<div class="indicator">
+  <div class="line"></div>
+  <div
+    matTooltipPosition="above"
+    [matTooltip]="item | titlecase"
+    class="status-indicator status-indicator-type--{{ item }}"
+    [class.active]="item === activeId"
+    *ngFor="let item of status"
+  ></div>
+</div>
+
+<label for="status">{{ activeId | titlecase }}</label>

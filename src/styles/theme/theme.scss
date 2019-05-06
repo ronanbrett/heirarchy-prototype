@@ -4,11 +4,11 @@
 
 $default-type: mat-typography-config();
 
-$policy-tree-proto-primary: mat-palette($mat-indigo);
-$policy-tree-proto-accent: mat-palette($mat-pink, A200, A100, A400);
+$policy-tree-proto-primary: mat-palette($bnp-primary, 500);
+$policy-tree-proto-accent:  mat-palette($bnp-primary, 300);
 
 // The warn palette is optional (defaults to red).
-$policy-tree-proto-warn: mat-palette($mat-red);
+$policy-tree-proto-warn: mat-palette($bnp-warning);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $policy-tree-proto-theme: mat-light-theme(

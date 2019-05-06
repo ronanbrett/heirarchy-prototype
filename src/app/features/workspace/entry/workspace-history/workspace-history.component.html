@@ -1,0 +1,26 @@
+<header>
+  <h4>History</h4>
+  <p>Select a tree to view</p>
+</header>
+
+<h4>Start Date</h4>
+<p>{{ultimateStartDate | date}}</p>
+
+<section
+  (click)="loadTree(tree)"
+  *ngFor="let tree of trees | async"
+  class="tree tree-status--{{ tree.lifeCycleStatus }} tree--{{
+    tree.key === activeID ? 'active' : ''
+  }}"
+>
+  <header class="tree__header">
+    <h5>{{ tree.name }}</h5>
+    <h5>
+      {{ tree.effectiveDateStart | date: 'MM/yy'
+      }}{{ tree.effectiveDateEnd ? ' - ' : ''
+      }}{{ tree.effectiveDateEnd | date: 'MM/yy' }}
+    </h5>
+  </header>
+
+  <p>{{ tree.lifeCycleStatus | titlecase }}</p>
+</section>

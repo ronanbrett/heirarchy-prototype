@@ -1,12 +1,6 @@
 import { HierarchyLink, HierarchyNode } from 'd3-hierarchy';
+import { ISNodeType } from 'src/app/state/is-nodes/is-node.model';
 
-export enum NodeType {
-  empty,
-  active,
-  root,
-  child,
-  group
-}
 export interface GridItem {
   id: number;
   children: NodeItem[];
@@ -14,7 +8,7 @@ export interface GridItem {
 export interface NodeItem {
   id: string;
   parent: string;
-  type: NodeType;
+  type: ISNodeType;
 }
 export interface Heirarchy {
   items: NodeItem[];
@@ -28,4 +22,7 @@ export interface HeirarchyNodeWithLink extends HierarchyNode<any> {
   left: number;
   top: number;
   childParent: HeirarchyNodeWithLink;
+  _children: any;
+  value: any;
+
 }

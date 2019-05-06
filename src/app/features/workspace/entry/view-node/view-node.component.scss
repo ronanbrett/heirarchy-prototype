@@ -1,0 +1,24 @@
+@import 'src/styles/settings/settings';
+
+:host {
+  min-width: 25vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: $spacing-l $spacing-m $spacing-s;
+
+  h3 {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  app-query-search-field {
+    width: 100%;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: $spacing-m;
+    top: $spacing-m;
+  }
+}

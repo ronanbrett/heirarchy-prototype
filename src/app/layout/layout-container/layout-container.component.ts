@@ -7,18 +7,19 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./layout-container.component.scss']
 })
 export class LayoutContainerComponent implements OnInit {
-  isSideOpen = false;
+  isEndSideOpen = false;
+  isStartSideOpen = false;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {}
 
-  openSideNav() {
-    this.isSideOpen = true;
+  toggleEndSideNav(toggle: boolean) {
+    this.isEndSideOpen = toggle;
   }
 
-  closeSideNav() {
-    this.isSideOpen = false;
+  toggleStartSideEnd(toggle: boolean) {
+    this.isStartSideOpen = toggle;
   }
 
   sideNavClosing() {
