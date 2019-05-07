@@ -12,6 +12,8 @@ import { HeirarchyNodeWithLink } from '../../interfaces/NodeType';
 import { IsTreesQuery } from 'src/app/state/is-tree/is-tree.query';
 import { TREE_INTERACTIVE_STATE } from 'src/app/state/is-tree/is-tree.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material';
+import { ERROR_NOTIFICATIONS } from '../../data/workspace-error.consts';
 
 @Component({
   selector: 'app-workspace-layout-infinite',
@@ -27,7 +29,8 @@ export class WorkspaceLayoutInfiniteComponent implements OnInit {
     private connectionService: ConnectionDrawService,
     public layoutService: NodeLayoutService,
     private router: Router,
-    private isTreeQuery: IsTreesQuery
+    private isTreeQuery: IsTreesQuery,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -125,7 +128,23 @@ export class WorkspaceLayoutInfiniteComponent implements OnInit {
     fromNode: HeirarchyNodeWithLink,
     toNode: HeirarchyNodeWithLink
   ) {
-    const parentId = this.getFirstNonChildTypeParentId(toNode);
+    // Object is being shallow cloned from a D3 Object - probably in the keyvalue pipe
+    const descendants = fromNode.parent.children
+      .find(x => x.id === fromNode.id)
+      .descendants();
+    if (descendants.find(x => x.id === toNode.id)) {
+      return this.snackBar.open(
+        ERROR_NOTIFICATIONS.CANT_MOVE_NODE_TO_CHILD_OF_ITSELF.message,
+        null,
+        { duration: 13000, panelClass: 'error' }
+      );
+    }
+
+    let parentId = this.getFirstNonChildTypeParentId(toNode);
+
+    if (toNode.data.type !== ISNodeType.child) {
+      parentId = toNode.id;
+    }
 
     this.router.navigate(['workspace', { outlets: { endside: 'move' } }], {
       queryParams: {

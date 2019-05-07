@@ -3,5 +3,75 @@
 </button>
 
 <header>
-  <h3>Node</h3>
+  <label for="node">Account</label>
+  <h3>Berkshire US East Series A III</h3>
+  <h5>AC034534-364524-64526-26363-26363-EY</h5>
 </header>
+
+<app-status-indicator
+  [activeId]="statuses.active"
+  [status]="status"
+></app-status-indicator>
+
+<mat-divider></mat-divider>
+
+<section>
+  <label for="actions">Actions</label>
+  <article>
+    <button (click)="setComponentState(states.MOVE)" mat-icon-button>
+      <mat-icon>open_with</mat-icon>
+    </button>
+    <button (click)="setComponentState(states.ATTACH)" mat-icon-button>
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    <button mat-icon-button>
+        <mat-icon>create</mat-icon>
+      </button>
+  </article>
+</section>
+
+<section *ngIf="state === states.MOVE" class="inset action">
+  <button
+    class="close-btn"
+    mat-icon-button
+    (click)="setComponentState(states.DEFAULT)"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <label for="">Move Account</label>
+  <p>Search for the account you want to move this node to.</p>
+  <app-query-search-field
+    [fields]="fields"
+    [links]="links"
+    (results)="setSearchResults()"
+  ></app-query-search-field>
+
+  <mat-action-list>
+    <button *ngFor="let item of searchResults | slice: 0:5" mat-list-item>
+      {{ item }}
+    </button>
+  </mat-action-list>
+</section>
+
+<section *ngIf="state === states.ATTACH" class="inset action">
+  <button
+    class="close-btn"
+    mat-icon-button
+    (click)="setComponentState(states.DEFAULT)"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <label for="">Attach Account</label>
+  <p>Search for the Account you want to attach to this node.</p>
+  <app-query-search-field
+    [fields]="fields"
+    [links]="links"
+    (results)="setSearchResults()"
+  ></app-query-search-field>
+
+  <mat-action-list>
+    <button *ngFor="let item of searchResults | slice: 0:5" mat-list-item>
+      {{ item }}
+    </button>
+  </mat-action-list>
+</section>

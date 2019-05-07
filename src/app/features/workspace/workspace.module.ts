@@ -7,6 +7,7 @@ import { WorkspaceMetadataModule } from './entry/workspace-metadata/workspace-me
 import { WorkspaceLayoutTestPageModule } from './pages/workspace-layout-test-page/workspace-layout-test-page.module';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { MoveNodeModule } from './entry/move-node/move-node.module';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -14,6 +15,7 @@ import { MoveNodeModule } from './entry/move-node/move-node.module';
     AttachAccountModule,
     MoveNodeModule,
     CommonModule,
+    MatSnackBarModule,
     ViewNodeModule,
     WorkspaceHistoryModule,
     WorkspaceLayoutTestPageModule,

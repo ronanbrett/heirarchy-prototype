@@ -1,0 +1,8 @@
+@mixin label {
+  label {
+    text-transform: uppercase;
+    margin: 0 0 $spacing-s;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}

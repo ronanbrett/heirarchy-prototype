@@ -1,17 +1,19 @@
 <div
-  (click)="openNode()"
-  class="node node-type--{{ getType() }} {{
-    isCollapsed ? 'node--grouped' : ''
-  }}"
+  class="node node-type--{{ getType() }}"
+  [class.node--grouped]="item._children"
+
 >
   <div class="node__extender node__extender--top">
     <ng-container>
       <ng-content select="[slot=drag-handle]"></ng-content>
     </ng-container>
   </div>
-  <header *ngIf="item.data.type !== types.draft">
-    {{ getType() }} <ng-content></ng-content>
-  </header>
+  <section (click)="openNode()" class="node__content">
+    <header *ngIf="item.data.type !== types.draft">
+      {{ getType() }} <ng-content></ng-content>
+    </header>
+  </section>
+
   <div
     #el
     (mousedown)="startLine($event, el)"

@@ -1,12 +1,9 @@
 @import 'src/styles/settings/settings';
+@import 'src/styles/objects/sidepanel';
 
 :host {
-  min-width: 25vw;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: $spacing-l $spacing-m $spacing-s;
 
+  @include end-side-panel();
   h3 {
     margin: 0;
     font-weight: 400;
@@ -14,11 +11,5 @@
 
   app-query-search-field {
     width: 100%;
-  }
-
-  .close-btn {
-    position: absolute;
-    right: $spacing-m;
-    top: $spacing-m;
   }
 }

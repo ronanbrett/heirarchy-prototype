@@ -9,6 +9,8 @@ export class ISNodesQuery extends QueryEntity<ISNodesState, IsNode> {
   constructor(protected store: IsNodesStore) {
     super(store);
   }
+
+  search(filters: {}) {}
 }
 
 function sortByID(a: IsNode, b: IsNode) {

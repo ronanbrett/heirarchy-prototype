@@ -5,13 +5,12 @@
   position: relative;
   will-change: auto;
 
-  ::ng-deep .hack_drag_handle  {
+  ::ng-deep .hack_drag_handle {
     width: 35px;
-    height:35px;
+    height: 35px;
     z-index: 999;
-    transform: translate(-5px, -5px); 
-
-  } 
+    transform: translate(-5px, -5px);
+  }
 
   .node {
     width: 220px;
@@ -21,13 +20,36 @@
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    &__content {
+      height: 100%;
+      flex: 1 1 auto;
+      background-color: white;
+      border-radius: 5px;
+    }
 
     &--grouped {
-      background-color: red;
+      position: relative;
+      z-index: 0;
+      &:before {
+        background: url(/assets/card.svg) 5px 15px no-repeat,
+          url(/assets/card.svg) 10px 10px no-repeat,
+          url(/assets/card.svg) 15px 5px no-repeat;
+        content: '';
+        opacity: 0.9;
+        background-origin: content-box;
+        top: -30px;
+        left: 0;
+        width: 250px;
+        height: 140px;
+        position: absolute;
+        z-index: -9999999;
+      }
     }
 
     &-type--root {
-      background-color: $color-dark-blue;
       box-shadow: 0 2px 12px 0 rgba(52, 52, 63, 0.38);
 
       header {
@@ -58,13 +80,13 @@
       box-shadow: 0 2px 12px 0 rgba(166, 166, 166, 0.43);
 
       header {
-        background-color:  $color-dark-blue;
+        background-color: $color-dark-blue;
         color: white;
         font-size: 12px;
       }
 
       .node__extender {
-        background-color:  $color-dark-blue;;
+        background-color: $color-dark-blue;
 
         &--btm {
           background-color: white;

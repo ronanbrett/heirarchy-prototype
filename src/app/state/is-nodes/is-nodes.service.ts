@@ -13,7 +13,9 @@ export class IsNodesService {
     private isNodeQuery: ISNodesQuery,
     private isNodesStore: IsNodesStore
   ) {
-    this.collection = new StateHistoryPlugin<IsNode>(isNodeQuery);
+    this.collection = new StateHistoryPlugin<IsNode>(isNodeQuery, {
+      maxAge: 300
+    });
   }
 
   resetHistory() {

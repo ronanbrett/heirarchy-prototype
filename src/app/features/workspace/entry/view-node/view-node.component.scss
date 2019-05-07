@@ -1,24 +1,57 @@
 @import 'src/styles/settings/settings';
+@import 'src/styles/objects/sidepanel';
+@import 'src/styles/objects/label';
 
 :host {
-  min-width: 25vw;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: $spacing-l $spacing-m $spacing-s;
+  @include end-side-panel();
+  @include label();
 
-  h3 {
-    margin: 0;
-    font-weight: 400;
+  header {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: $spacing-xs;
+      color: $color-light-blue;
+    }
+
+    h3 {
+      margin: 0 0 $spacing-xs;
+      font-weight: 500;
+    }
+
+    h5 {
+      margin: 0;
+      color: $color-light-blue;
+      font-weight: 400;
+    }
   }
 
-  app-query-search-field {
-    width: 100%;
+  & > header,
+  & > section,
+  & > app-status-indicator,
+  & > mat-divider {
+    margin-bottom: $spacing-m;
   }
 
-  .close-btn {
-    position: absolute;
-    right: $spacing-m;
-    top: $spacing-m;
+  section.inset {
+    position: relative;
+    box-shadow: inset 3px 3px 3px rgba(197,197,197,0.1);
+    margin-left: -$spacing-m;
+    margin-right: -$spacing-m;
+    padding: $spacing-m;
+    background-color: $color-gray-dark;
+    color: $color-dark-blue;
+
+    .close-btn {
+      top: $spacing-s;
+      right: $spacing-s;
+    }
+  }
+
+  .action {
+    p {
+      margin-bottom: 0 0 $spacing-s;
+    }
   }
 }

@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { QueryToken, SyntaxKind } from '../lexer/scanner.interfaces';
 import { ScannerService } from '../lexer/scanner.service';
 import { DEFAULT_FIELDS } from './query-search.consts';
+import { throttleTime } from 'rxjs/operators';
 
 const GRAMMAR_TREE = {
   array: ['contains', 'does not contain'],
@@ -188,7 +189,8 @@ export class QuerySearchFieldComponent implements OnInit {
           count = 0;
       }
     });
-    console.log(items);
+
+    this.results.next(items);
   }
 
   displayFn(val): string | undefined {

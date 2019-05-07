@@ -96,11 +96,11 @@ export class NodeLayoutService {
     let previousNode: HeirarchyNodeWithLink;
 
     // Collapse Nodes
-    // node.eachBefore((cNode: HeirarchyNodeWithLink) => {
-    //   if (cNode.data.type === ISNodeType.group && cNode.children) {
-    //     this.collapse(cNode);
-    //   }
-    // });
+    node.eachBefore((cNode: HeirarchyNodeWithLink) => {
+      if (cNode.data.type === ISNodeType.group && cNode.children) {
+        this.collapse(cNode);
+      }
+    });
 
     node.eachBefore((currentNode: HeirarchyNodeWithLink) => {
       // If the Previous Node is not the Parent Node and the Parent Node of the Current Node

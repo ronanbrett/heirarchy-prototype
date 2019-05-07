@@ -1,0 +1,16 @@
+@import 'src/styles/settings/settings';
+
+@mixin end-side-panel {
+  min-width: 25vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: $spacing-l $spacing-m $spacing-s;
+
+  .close-btn {
+    position: absolute;
+    right: $spacing-m;
+    top: $spacing-m;
+  }
+
+}

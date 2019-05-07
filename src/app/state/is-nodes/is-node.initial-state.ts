@@ -30,7 +30,7 @@ function generateTree() {
 export function generateInitialTreeState(): any {
   TEMP_LIST = [];
   NODE_COUNT = 1;
-  for (let index = 0; index <= 500; index++) {
+  for (let index = 0; index <= 150; index++) {
     generateTree();
   }
 

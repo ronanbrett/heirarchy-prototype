@@ -42,15 +42,15 @@ export class WorkspaceNodeLeafFixedComponent implements OnInit {
   ngOnInit() {
     this.links = this.item.children;
     this.type = ISNodeType[this.item.data.type];
-    this.isCollapsed = this.item._children ? true : false;
   }
 
   startLine(event: MouseEvent, el: HTMLElement) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
     if (this.item._children) {
-      this.isCollapsed = false;
       return this.expand.next(this.item.id);
     }
-    event.preventDefault();
 
     if (!detectIE11OrLower()) {
       this.init.next();
