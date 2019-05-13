@@ -1,0 +1,27 @@
+@import 'src/styles/settings/settings';
+
+@mixin actions-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  margin-bottom: $spacing-m;
+  background-color: $color-header-bg;
+  border: 1px solid $color-border;
+
+  padding: $spacing-m $spacing-m;
+
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+
+  box-sizing: border-box;
+
+  button {
+    flex: 0 0 auto;
+
+    & + button {
+      margin-left: $spacing-s;
+    }
+  }
+
+
+}

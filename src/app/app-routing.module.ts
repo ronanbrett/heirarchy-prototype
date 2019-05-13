@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: 'workspace',
     loadChildren: './features/workspace/workspace.module#WorkspaceModule'
-  }
+  },
 ];
 
 @NgModule({

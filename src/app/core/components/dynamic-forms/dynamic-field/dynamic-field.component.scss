@@ -1,0 +1,12 @@
+inno-dynamic-field {
+  width: 100%;
+  display: flex;
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  & > form {
+    width: 100%;
+  }
+}

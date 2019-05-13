@@ -546,9 +546,9 @@ export class ScannerService {
         );
       }
     } else {
-      throw new Error(
-        'Diagnostics.An_identifier_or_keyword_cannot_immediately_follow_a_numeric_literal, identifierStart, length'
-      );
+      // throw new Error(
+      //   'Diagnostics.An_identifier_or_keyword_cannot_immediately_follow_a_numeric_literal, identifierStart, length'
+      // );
       this.pos = identifierStart;
     }
   }

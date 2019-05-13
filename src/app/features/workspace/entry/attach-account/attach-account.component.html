@@ -9,7 +9,14 @@
 <app-query-search-field
   [fields]="fields"
   [links]="links"
+  (results)="searchNodes($event)"
 ></app-query-search-field>
+
+<mat-action-list>
+  <button *ngFor="let item of searchResults | slice: 0:5" mat-list-item>
+    {{ item.accountName }}
+  </button>
+</mat-action-list>
 
 
 <button (click)="addNode()" mat-button>Add</button>

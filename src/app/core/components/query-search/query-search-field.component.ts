@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { QueryToken, SyntaxKind } from '../lexer/scanner.interfaces';
 import { ScannerService } from '../lexer/scanner.service';
 import { DEFAULT_FIELDS } from './query-search.consts';
-import { throttleTime } from 'rxjs/operators';
+import { throttleTime, switchMap, debounceTime } from 'rxjs/operators';
 
 const GRAMMAR_TREE = {
   array: ['contains', 'does not contain'],
@@ -37,12 +37,15 @@ export class QuerySearchFieldComponent implements OnInit {
 
   @Input() links = GRAMMAR_TREE.links;
 
+  private _results: Subject<any> = new Subject();
   @Output() results: EventEmitter<any> = new EventEmitter();
 
   filters: any[] = [];
   tags: any;
 
-  constructor(private scanner: ScannerService) {}
+  constructor(private scanner: ScannerService) {
+    this._results.pipe(debounceTime(500)).subscribe(n => this.results.next(n))
+  }
 
   ngOnInit() {
     this.options.next(this.mappedFields);
@@ -190,12 +193,12 @@ export class QuerySearchFieldComponent implements OnInit {
       }
     });
 
-    this.results.next(items);
+    this._results.next(items);
   }
 
   displayFn(val): string | undefined {
     return val ? val : undefined;
   }
 
-  selectOption() {}
+  selectOption() { }
 }

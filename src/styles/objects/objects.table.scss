@@ -1,0 +1,45 @@
+@import '../settings/settings';
+
+@mixin table() {
+  .mat-table {
+    width: 100%;
+  }
+
+  .mat-header-row {
+    background-color: $color-dark-blue;
+    height: 40px;
+  }
+
+  .mat-header-cell {
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .mat-row {
+    &:nth-of-type(even){
+      background-color: $color-table-row;
+    }
+
+    &:hover {
+      background-color: $color-table-hover;
+    }
+  }
+
+  .mat-cell {
+    border: none;
+    font-size: 13px;
+    color: $color-text-blue;
+  }
+
+  .mat-column-actions {
+    width: 10px;
+    padding-right: 6px;
+  }
+
+  .mat-column-select {
+    width: 50px;
+  }
+
+
+}

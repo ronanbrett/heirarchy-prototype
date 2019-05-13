@@ -1,0 +1,11 @@
+<mat-form-field floatLabel="never">
+  <mat-select
+    [formControl]="userControl"
+    placeholder="Select User"
+    [value]="loginService.userId$ | async"
+  >
+    <mat-option *ngFor="let user of loginService.users" [value]="user.id">
+      {{ user.id }} [{{ user.displayName }}]
+    </mat-option>
+  </mat-select>
+</mat-form-field>

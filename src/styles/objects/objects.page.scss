@@ -1,0 +1,12 @@
+@import '../settings/settings';
+
+@mixin page(){
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-m $spacing-m;
+  box-sizing: border-box;
+
+  background-color: $color-page-bg;
+
+  min-height: calc(100vh - 188px);
+}

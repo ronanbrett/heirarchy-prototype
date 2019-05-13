@@ -21,6 +21,11 @@
 
     <div class="gap"></div>
 
+
+    <mat-select placeholder='BOR Versions'>
+      <mat-option>BOR Version</mat-option>
+    </mat-select>
+
     <ng-container *ngIf="isNodeService.collection.hasPast">
       <button (click)="reset()" mat-button>Reset</button>
       <button color="primary" mat-flat-button>Save Changes</button>

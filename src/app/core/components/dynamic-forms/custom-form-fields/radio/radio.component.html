@@ -1,0 +1,9 @@
+<div [formGroup]="form" class="">
+  <mat-radio-group (change)="onUpdate($event)">
+    <mat-radio-button
+      *ngFor="let option of options"
+      [value]="option.value"
+      >{{ option.key }}</mat-radio-button
+    >
+  </mat-radio-group>
+</div>

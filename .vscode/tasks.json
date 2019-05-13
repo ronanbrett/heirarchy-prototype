@@ -23,6 +23,14 @@
       "type": "npm",
       "script": "start:prod",
       "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "generate:swagger",
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "isBackground": true
     }
   ]
 }

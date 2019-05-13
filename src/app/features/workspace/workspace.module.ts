@@ -8,6 +8,7 @@ import { WorkspaceLayoutTestPageModule } from './pages/workspace-layout-test-pag
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { MoveNodeModule } from './entry/move-node/move-node.module';
 import { MatSnackBarModule } from '@angular/material';
+import { NodeAccountsService } from './services/node-accounts.service';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,8 @@ import { MatSnackBarModule } from '@angular/material';
     WorkspaceRoutingModule
   ],
   entryComponents: [],
-  providers: []
+  providers: [
+    NodeAccountsService
+  ]
 })
 export class WorkspaceModule {}
